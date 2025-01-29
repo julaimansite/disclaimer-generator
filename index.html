@@ -4,6 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Disclaimer Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .output {
+            margin-top: 10px;
+            text-align: left;
+            white-space: pre-wrap;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        .copy-btn {
+            margin-top: 10px;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: none;
+        }
+        .copy-btn:hover {
+            background: #218838;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,6 +75,42 @@
         <div class="output" id="output"></div>
         <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">Copy Text</button>
     </div>
+    
+    <script>
+        function generateDisclaimer() {
+            let websiteName = document.getElementById("websiteName").value.trim();
+            let websitePurpose = document.getElementById("websitePurpose").value.trim();
+            
+            if (!websiteName || !websitePurpose) {
+                document.getElementById("output").innerText = "Please fill in all fields.";
+                document.getElementById("copyBtn").style.display = "none";
+                return;
+            }
+            
+            let disclaimerText = `
+                Disclaimer for ${websiteName}
+                
+                The information provided on ${websiteName} is for general informational purposes only. All content on this site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the site.
+                
+                ${websitePurpose}
+                
+                Under no circumstance shall we have any liability for any loss or damage of any kind incurred as a result of the use of the site or reliance on any information provided on the site. Your use of the site and your reliance on any information on the site is solely at your own risk.
+                
+                If you require any more information or have any questions about our site's disclaimer, please feel free to contact us.
+            `;
+            
+            document.getElementById("output").innerText = disclaimerText;
+            document.getElementById("copyBtn").style.display = "block";
+        }
 
+        function copyToClipboard() {
+            let outputText = document.getElementById("output").innerText;
+            navigator.clipboard.writeText(outputText).then(() => {
+                alert("Disclaimer copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
 </body>
 </html>
